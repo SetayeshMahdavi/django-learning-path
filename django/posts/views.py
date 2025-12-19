@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse ,HttpResponseRedirect
 from .models import Post,Comment
+from .forms import PostForm
+
+
+
+
 def index (request):
     return HttpResponse("<h1> welcom to Django .sety </h1>")
 
@@ -19,3 +24,15 @@ def post_detail(request,post_id):
     comments=Comment.objects.filter(post=post)
     context={'post':post,'comment':comments}
     return render(request, 'posts/post_detail.html' ,context=context)
+
+
+def post_create(request):
+    if request.method =='POST':
+        form=PostForm(request.POST)
+        if form.is_valid():
+            Post.objects.create(**form.cleaned_data)
+            return HttpResponseRedirect ('posts')
+    else:
+        form=PostForm()
+        context={'form':form}
+    return render(request,'posts/post_create.html',context=context,)
