@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse ,HttpResponseRedirect
 from .models import Post,Comment
 from .forms import PostForm
@@ -31,7 +31,8 @@ def post_create(request):
         form=PostForm(request.POST)
         if form.is_valid():
             Post.objects.create(**form.cleaned_data)
-            return HttpResponseRedirect ('posts')
+            return HttpResponseRedirect ('/posts/')
+
     else:
         form=PostForm()
         context={'form':form}
