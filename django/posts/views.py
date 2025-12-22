@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse ,HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse ,HttpResponseRedirect,HttpResponseNotFound
 from .models import Post,Comment
 from .forms import PostForm
 
@@ -20,20 +20,22 @@ def post_list (request):
 
 
 def post_detail(request,post_id):
-    post=Post.objects.get(pk=post_id)
+    # try:    
+    #     post=Post.objects.get(pk=post_id)
+    # except Post.DoesNotExist:
+    #     return HttpResponseNotFound("post is not exist")
+    post=get_object_or_404(Post,pk=post_id)
     comments=Comment.objects.filter(post=post)
     context={'post':post,'comment':comments}
     return render(request, 'posts/post_detail.html' ,context=context)
-
-
+    
 def post_create(request):
     if request.method =='POST':
         form=PostForm(request.POST)
         if form.is_valid():
             Post.objects.create(**form.cleaned_data)
             return HttpResponseRedirect ('/posts/')
-
-    else:
+        
         form=PostForm()
         context={'form':form}
     return render(request,'posts/post_create.html',context=context,)
