@@ -37,11 +37,11 @@ def post_detail(request,post_id):
 
 class PostDetail(generic.DetailView):
     model=Post
-    template_name='posts/post_detail.html'
+    template_name='posts/post_detail.html' 
     
     def get_context_data(self, **kwargs):
         context= super(PostDetail ,self).get_context_data(**kwargs)
-        context['Comment']=Comment.objects.filter(post=kwargs['object'].pk)
+        context['Comment']=Comment.objects.filter(post=self.object)
         return context
 
 def post_create(request):
