@@ -6,9 +6,8 @@ from django.views import generic
 
 
 
-
 def index (request):
-    return HttpResponse("<h1> welcom to Django .sety </h1>")
+    return HttpResponse("<h1> welcome to Django .sety </h1>")
 
 def home (request):
     return HttpResponse("<h1> hi you are in home.</h1>")
@@ -19,7 +18,7 @@ def home (request):
 #     context={'posts':posts}
 #     return render(request,'posts/post_list.html',context=context)
 
-class Postlist(generic.ListView):
+class PostList(generic.ListView):
     queryset=Post.objects.all()
     template_name='posts/post_list.html'
     context_object_name='posts'
@@ -53,4 +52,4 @@ def post_create(request):
         
         form=PostForm()
         context={'form':form}
-    return render(request,'posts/post_create.html',context=context,)
+    return render(request,'posts/post_create.html',context=context)
