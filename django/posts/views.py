@@ -4,10 +4,17 @@ from .models import Post,Comment
 from .forms import PostForm
 from django.views import generic
 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 
 
+@api_view(['GET','POST'])
 def index (request):
-    return HttpResponse("<h1> welcome to Django .sety </h1>")
+    #return HttpResponse("<h1> welcome to Django .sety </h1>")
+    return Response({'Setayesh':'Mahdavi'}, status=status.HTTP_200_OK)
+
+
 
 def home (request):
     return HttpResponse("<h1> hi you are in home.</h1>")

@@ -22,7 +22,7 @@ class Post(models.Model):
     objects = models.Manager()
     live=PostLiveManager()
 
- 
+
     def __str__(self):
         #return self.title
          return f"{self.pk} - {self.title}"
