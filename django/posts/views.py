@@ -7,13 +7,19 @@ from django.views import generic
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from .serializer import PostSerializer
+
 
 
 @api_view(['GET','POST'])
 def index (request):
-    #return HttpResponse("<h1> welcome to Django .sety </h1>")
-    return Response({'Setayesh':'Mahdavi'}, status=status.HTTP_200_OK)
+    try:
+        p=Post.objects.get(pk=1)
+    except Post.DoesNotExist:
+        return Response({'detail':'Post does not exist'},status=status.HTTP_404_NOT_FOUND)
+    serializer=PostSerializer(p)
 
+    return Response(serializer.data)
 
 
 def home (request):
