@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+</head>
+<body>
+    <h1> {{post.title}}</h1>
+    <p>{{post.text}}</p>
+
+    <ul>
+        {%for c in Comment %}
+            <li> {{c.text}} , {{c.created_time}} </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>                      
